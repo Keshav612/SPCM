@@ -1,7 +1,7 @@
 pipeline {
   environment {
     registry = "keshav1206/nodejs-mongo-docker-app"
-    registryCredential = 'Keshav12@'
+    registryCredential = 'dockerhub'
     dockerImage = ''
   }
   agent any
@@ -26,7 +26,7 @@ pipeline {
     stage('Deploying Image') {
       steps{
          script {
-            docker.withRegistry( '', registryCredential ) {
+            docker.withRegistry( 'https://hub.docker.com/repository/docker/keshav1206/node-mongo', registryCredential ) {
             dockerImage.push()
           }
         }
