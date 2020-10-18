@@ -8,7 +8,7 @@ const cors = require('cors')
 
 //Config
 const appConfig = require('./config/configApp');
- var whitelist = ['http://localhost', 'http://localhost:3000']; //for cross origin access
+ var whitelist = ['http://localhost', 'http://localhost:3000', 'http://184.72.85.251:3000']; //for cross origin access
  var corsOptions = {
      origin: function(origin, callback) {
          if (whitelist.indexOf(origin) !== -1) {
