@@ -1,36 +1,23 @@
-pipeline {
-  environment {
-    registry = "keshav1206/nodejs-mongo-docker-app"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-  }
-  agent any
-  stages {
-    stage('Fetching Code') {
-      steps {
-        git 'https://github.com/Keshav612/SPCM.git'
-      }
+node {
+    def app
+
+    stage('Clone repository') {
+        /* Cloning the Repository to our Workspace */
+
+        checkout scm
     }
-    stage('Build') {
-       steps {
-         sh 'docker build -t nodejs-mongo-docker-app .'
-       }
-    }
+
     stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
-      }
+        /* This builds the actual image */
+
+        app = docker.build("keshav/nodeapp")
     }
-    stage('Deploying Image') {
-      steps{
-         script {
-            docker.withRegistry( 'https://hub.docker.com/repository/docker/keshav1206/node-mongo', registryCredential ) {
-            dockerImage.push()
-          }
-        }
-      }
+
+    stage('Push image') {
+          docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+            } 
+                echo "Trying to Push Docker Build to DockerHub"
     }
-  }
 }
