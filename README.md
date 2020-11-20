@@ -35,10 +35,7 @@
 
 ## Installation
 
-1. Clone or [Download Zip](https://github.com/sauravgarg001/chat-app/archive/master.zip) 
-```
-git clone https://github.com/sauravgarg001/chat-app.git
-```
+1.Fetch the code.
 2. Goto chat-app directory
 ```
 cd chat-app
